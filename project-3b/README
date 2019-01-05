@@ -1,0 +1,12 @@
+NAME: Neil Sonnenberg,Jessie Liu
+EMAIL: sonnenbergneil@gmail.com,jessie.qy.liu@gmail.com
+ID: 204748664,204791822
+
+lab3b.py	a python source module that detects inconcistencies in a file system summary
+
+Makefile 	builds a deliverable program with targets:
+				* default: build executable lab3b
+				* dist: creates a deliverable tarball
+				* clean: removes the tarball and executable
+
+README 		a text file containing descriptions of each of the included files 

@@ -1,0 +1,11 @@
+NAME: Jessie Liu,Neil Sonnenberg
+EMAIL: jessie.qy.liu@gmail.com,sonnenbergneil@gmail.com
+ID: 204791822,204748664
+
+Included files:
+    lab3a.c - C source code
+    Makefile - contains the following targets
+        (default) - compiles source code
+        dist - creates deliverable .tar.gz file
+        clean - removes files created by Makefile
+    README - this file

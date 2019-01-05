@@ -1,0 +1,15 @@
+NAME: Neil Sonnenberg
+ID: 204748664
+EMAIL: sonnenbergneil@gmail.com
+
+File Descriptions:
+lab4c_tcp.c 	a C source file that connects to a remote server over TCP and sends/receives information 
+				regarding the Beaglebone's temperature sensors
+
+lab4c_tls.c 	a C source file that connects to a remote server via OpenSSL and sends/receives 
+				information regarding the Beaglebone's temperature sensors
+
+Makefile 		builds and creates a tarball for the embedded applications created from the two C source
+				files included in this tarball
+
+README 			contains descriptions for each included file	 	

@@ -1,0 +1,18 @@
+NAME: Neil Sonnenberg
+EMAIL: sonnenbergneil@gmail.com
+ID: 204748664
+
+This package contains 5 screenshots from the setup of a Beaglebone device.
+
+connected.png - contains an ifconfig print out from the Beaglebone 
+
+copy.png - contains record of a pscp command that transferred a helloworld.c file to the beaglebone
+
+build_run.png - contains the gcc command and runtime of the simple hello world program transferred 	in copy.png
+
+git.png - contains the record of installing and cloning a git repository
+
+my_beaglebone.jpg - a selfie of me holding my beaglebone
+
+S/N: BBGW17052315
+MAC: 2CF7F10668A5

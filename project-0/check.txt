@@ -1,0 +1,155 @@
+... using test directory /tmp/CS111_test.sonnenbe
+... extracting /u/cs/ugrad/sonnenbe/cs111/lab0/lab0-204748664.tar.gz
+lab0.c
+Makefile
+README
+backtrace.png
+breakpoint.png
+... checking for README file
+    README ... OK
+... checking for submitter ID in README
+    single submitter: 204748664
+... checking for submitter email in README
+    single address: sonnenbergneil@gmail.com ... OK
+... checking for submitter name in README
+    submitter(s): Neil Sonnenberg ... OK
+... checking for other expected files
+    Makefile ... OK
+    lab0.c ... OK
+    backtrace.png ... OK
+    breakpoint.png ... OK
+... checking for required Make targets
+    Makefile target clean ... OK
+    Makefile target dist ... OK
+    Makefile target check ... OK
+... checking for required compillation options
+    Makefile includes Wall ... OK
+    Makefile includes Wextra ... OK
+... building default target(s)
+gcc -o lab0 lab0.c -g -Wall -Wextra
+    RC=0 ... OK
+    error output ...  NONE
+... checking make check
+gcc -o lab0 lab0.c -g -Wall -Wextra
+Testing default case
+echo "Hello World" > testin.txt;
+cat testin.txt | ./lab0 > testout.txt;
+cmp testin.txt testout.txt; \
+if [[ $? != 0 ]]; then \
+echo "Test Failed: Error information in log.txt"; \
+echo "Error: STDOUT differed from STDIN" >> log.txt; \
+else \
+echo "Test Passed"; \
+fi; \
+rm -f testin.txt testout.txt
+Test Passed
+Testing invalid argument
+./lab0 --apple &> /dev/null; \
+if [[ $? != 1 ]]; then \
+echo "Test Failed: Error information in log.txt"; \
+echo "Error: Program did not exit with correct error code" >> log.txt; \
+else \
+echo "Test Passed"; \
+fi
+Test Passed
+Testing --input error code
+echo "Hello World" > testin.txt; \
+chmod u-r testin.txt; \
+./lab0 --input=testin.txt &> /dev/null; \
+if [[ $? != 2 ]]; then \
+echo "Test Failed: Error information in log.txt"; \
+echo "Error: File is not readable. Program did not catch." >> log.txt; \
+else \
+echo "Test Passed"; \
+fi; \
+rm -f testin.txt
+Test Passed
+Testing --output error code
+touch testout.txt;
+chmod u-w testout.txt;
+./lab0 --output=testout.txt &>/dev/null; \
+if [[ $? != 3 ]]; then \
+echo "Test Failed: Error information in log.txt"; \
+echo "Error: File is not writeable. Program did not catch." >> log.txt; \
+else \
+echo "Test Passed"; \
+fi; \
+rm -f testout.txt
+Test Passed
+Testing --input and --output
+echo "Hello World" > testin.txt; \
+./lab0 --input=testin.txt --output=testout.txt; \
+cmp testin.txt testout.txt; \
+if [[ $? != 0 ]]; then \
+echo "Test Failed: Error information in log.txt\n"; \
+echo "Error: output file differs from input file" >> log.txt; \
+else \
+echo "Test Passed"; \
+fi; \
+rm -f testin.txt testout.txt
+Test Passed
+Testing --segfault and --catch
+./lab0 --segfault --catch; \
+if [[ $? != 4 ]]; then \
+echo "Test Failed: Error information in log.txt"; \
+echo "Error: SIGSEGV not caught" >> log.txt; \
+else \
+echo "Test Passed"; \
+fi
+Test Passed
+    RC=0 ... OK
+... checking make dist
+gcc -o lab0 lab0.c -g -Wall -Wextra
+tar -czf lab0-204748664.tar.gz lab0.c Makefile README *.png
+    RC=0 ... OK
+    error output ...  NONE
+    lab0-204748664.tar.gz ... OK
+ ... checking make clean
+rm lab0 *.tar.gz
+    RC=0 ... OK
+    restored to freshly untar-ed state ... OK
+... redo default make
+gcc -o lab0 lab0.c -g -Wall -Wextra
+    RC=0 ... OK
+    error output ...  NONE
+... checking for expected products
+    lab0 ... OK
+... lab0 detects/reports bogus arguments
+    RC=1 ... OK
+        ./lab0: unrecognized option '--bogus'
+... exercise bad --input from a nonexistent file
+    RC=2 ... OK
+        Opening failed on --input argument. NON_EXISTENT_FILE could not be read... exercise bad --output to an unwritable file
+    RC=3 ... OK
+        Creating output file failed on --output argument. CANT_TOUCH_THIS could not be created
+... exercise --segfault option
+./P0_check.sh: line 216: 48972 Segmentation fault      ./$PGM --segfault
+    RC=139 ... OK
+... exercise --catch --segfault option
+    RC=4 ... OK
+        Segmentation fault caught. --catch passed as argument.
+... copy stdin -> stdout
+    RC=0 ... OK
+        data comparison ... OK
+... copy --input -> stdout
+    RC=0 ... OK
+        data comparison ... OK
+... copy stdin -> --output
+    RC=0 ... OK
+        data comparison ... OK
+... copy --input -> --output
+    RC=0 ... OK
+        data comparison ... OK
+... use of expected routines
+        getopt_long ... OK
+        signal ... OK
+        strerror ... NO REFERENCES FOUND
+        close ... OK
+        dup2\|dup ... OK
+
+THE ONLY STUDENTS WHO WILL RECEIVE CREDIT FOR THIS SUBMISSION ARE:
+    204748664    sonnenbergneil@gmail.com
+
+... removing test directory /tmp/CS111_test.sonnenbe
+
+SUBMISSION lab0-204748664.tar.gz ... FAILS sanity check with 1 errors

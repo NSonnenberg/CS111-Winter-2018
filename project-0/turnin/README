@@ -1,0 +1,40 @@
+NAME: Neil Sonnenberg
+EMAIL: sonnenbergneil@gmail.com
+ID: 204748664
+
+lab0.c:
+lab0.c contains the source code for Project 0. This code by default copies stdin to stdout
+using the read(2) and write(2) commands on file descriptors 0 and 1. It also supports argument
+parameters using the getopt-long API which allows the user to pass in an input file to use instead
+of stdin with --input and an output file to use instead of stdout with --output. It also supports 
+two additional parameters in --segfault and --catch which cause a segmentation fault and catch
+segmentation faults. It catchs segmentation faults using the signal API.
+
+Makefile:
+Makefile includes all the targets mentioned in the project specification. 
+default: 
+Builds the executable lab0 using the argument flags -g -Wall -Wextra
+dist:
+Creates the tarball of all the necessary files as specified in the project specification.
+This will print out an error message if one of the files is not present in the directory
+make dist is called from. However, it will still make the tarball with the remaining files.
+check:
+Contains smoke-test scripts to test the various basic things mentioned in the specification.
+This runs 6 tests. The first tests the program on copying STDIN to STDOUT which is the default
+no argument capability of the program. The next 3 tests check if the program exits with the correct
+exit codes which would are 1 for an invalid argument, 2 for bad input file, and 3 for a bad output
+file. The next test checked the --input and --output arguments and the last test checked the
+--segfault and --catch arguments. If a test fails, it appends a file called log.txt with the
+error.
+clean:
+Removes the executable and tarball.
+
+README:
+Contains information about the project.
+
+backtrace.png:
+A screenshot of the stacktrace in gdb after a segmentation fault when running the backtrace command.
+
+breakpoint.png:
+A screenshot of gdb showing a breakpoint on the line of code which causes the segmentation fault. Also
+contains a printing of the variable showing that it is a nullptr.

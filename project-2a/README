@@ -1,0 +1,98 @@
+NAME: Neil Sonnenberg
+EMAIL: sonnenbergneil@gmail.com
+ID: 204748664
+
+Questions:
+2.1.1 - Causing Conflicts:
+The reason it takes many iterations to see errors is that it increases the chances of
+race conditions occurring. Since the scheduler is ultimately in charge of what threads 
+go when, there is only a chance of a race condition occurring and with less iterations
+there are less chances of it happening. A significantly small number of iterations 
+seldom fails since the critical section is not run as much so there is less chance
+for the scheduler to cause the race condition
+
+2.1.2 - Cost of Yielding:
+The --yield runs are much slower because it forces the threads to yield the CPU before
+finishing their runtime. By yielding the CPU they are forcing context switches which are
+expensive operations. The additional time is going towards these context switches. It is not
+possible to get per-operation timing when using --yield because so much of the time spent
+is in context switching as opposed to operations.
+
+2.1.3 Measurement Errors:
+As the number of iterations increases, more and more of the runtime moves from thread creation
+to the actual operations. This makes the average cost per operation appear higher at smaller
+numbers of iterations and lower at larger numbers of iterations. We can find a "correct" cost
+if tend the function towards infinity.
+
+2.1.4 Costs of Serialization
+When the number of threads is small, the threads can more easily take advantage of multiple 
+CPU's. While each thread is running a separate CPU, they have less threads to compete with
+to execute critical sections and thus are not waiting on locks as much. However, as the number
+of threads increase, the number of threads per CPU increases and thus it becomes more and more
+likely that a thread will need to wait for a lock which increases time. Since the three protected
+operations are forced to wait for locks when the number of threads are high, they end up running
+slower than the unprotected operations.
+
+2.2.1 Scalability of Mutex
+Comparing the plots, it seems that both mutex curves tend to flatten out as the number of threads
+increases. This is because mutexes scale well as thread numbers increase as they put threads to
+sleep while they do not have the lock which reduces spinning. Both look to start with large rates
+of increase before slowing down probably due to the cost of thread generation. There is not any
+noticeable differences.
+
+2.2.2 Scalability of Spin Locks
+The plots for spin locks both show a general curve that does not level out as much as the mutex.
+This is because unlike mutexes, the spin lock is not yielding while it does not have the lock
+and thus wastes more and more CPU time the more threads there are. The spin lock in the list seems to have a
+lower rate of increase in the low number of threads that increases as the number of threads increases
+while the add seems to start off with a high rate of increase that levels out. This is most likely
+due to the amount of thread generation in add.
+
+
+Description of files:
+lab2_add.c 		a C program implementing and testing a shared variable add function with options for number of 
+				threads, number of iterations, yielding, and sync options
+
+lab2_list.c 	a C program implementing and testing shared linked list insertion and deletion with options for
+				number of threads, number of iterations, yielding, and sync options
+
+SortedList.h 	a header file describing the interface for linked list operations
+
+SortedList.c 	a C module that implements insert, delete, lookup, and length methods for a sorted doubly
+				linked list described in the header
+
+Makefile		builds deliverable programs output, graphs, and tarballs for the distribution with targets:
+					* build - compile all programs
+					* tests - run test cases to generate csv output files for graphing
+					* graphs - generates .png graphs from the data created in tests
+					* dist - creates the deliverable tarball
+					* clean - delete all executables and tarballs
+
+lab2_add.csv	contains all the results for the tests of lab2_add
+
+lab2_list.csv	contains all the results for the tests of lab2_list
+
+lab2_add-1.png	graphs threads and iterations required to generate a failure (with and without yields)
+
+lab2_add-2.png 	graphs average time per operation with and without yields
+
+lab2_add-3.png	graphs average time per (single threaded) operation vs. the number of operations
+
+lab2_add-4.png 	graphs threads and iterations that can run successfully with yields under each of the
+				synchronization options
+
+lab2_add-5.png	graphs average time per (protected) operation vs. the number of threads
+
+lab2_list-1.png	graphs average time per (single threaded) unprotected operation vs. number of iterations
+
+lab2_list-2.png graphs threads and iterations required to generate a failure (with and without yields)
+
+lab2_list-3.png graphs iterations that can run (protected) without failure
+
+lab2_list-4.png graphs (length-adjusted) cost per operation vs. the number of threads for the various
+				synchronization options
+
+sample.sh 		bash script to run the test cases mentioned in make tests and generate the csv files
+
+README			text file with descriptions for every included file and brief answers to the questions
+				posed in the project spec
